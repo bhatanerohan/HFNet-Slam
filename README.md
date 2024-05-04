@@ -1,5 +1,8 @@
 # HFNet-SLAM
 
+
+
+
 ## An accurate and real-time monocular SLAM system with deep features
 
 HFNet-SLAM is the combination and extension of the well-known [ORB-SLAM3](https://github.com/UZ-SLAMLab/ORB_SLAM3) SLAM framework and a unified CNN model called [HF-Net](https://github.com/ethz-asl/hfnet). It uses the image features from HF-Net to fully replace the hand-crafted ORB features and the BoW method in the ORB-SLAM3 system. This novelty results in better performance in tracking and loop closure, boosting the accuracy of the entire HFNet-SLAM.
@@ -8,7 +11,7 @@ HFNet-SLAM is the combination and extension of the well-known [ORB-SLAM3](https:
 
 <img src="https://user-images.githubusercontent.com/52725165/197087949-21196670-335e-4ea9-ac12-f226521da691.png" width="600" title="Better Tracking">
 
-**Better Loop Closure**:
+**Better Loop Closure**: 
 
 <img src="https://user-images.githubusercontent.com/52725165/197088191-1d01fe8a-02ef-4002-8eeb-3c312ef48eb4.png" width="600" title="Better Loop Closure">
 
@@ -19,6 +22,16 @@ HFNet-SLAM can run at 50 FPS with GPU support.
 <img src="https://user-images.githubusercontent.com/52725165/205820456-3290ee7e-5532-4d87-9485-415d92bbe076.png" title="Better Runtime Performance">
 
 More details about the differences can be found in the [HFNet-SLAM vs. ORB-SLAM3](Comparison/README.md) document.
+
+
+Below is the visualization detailing the path and keyframes of camera movement, with a 3D point 
+representing the environment and the 'world' anchor for the coordinate system.
+
+![img.png](img.png)
+
+Below is live working on EuRoc dataset sample
+[Media1.mp4](Media1.mp4)
+
 
 ## Prerequisites
 
@@ -53,14 +66,6 @@ Note: While building, please carefully check the output log of the compiler and 
 
 We use TensorRT, CUDA, and cuDNN for model inference. 
 
-The download and install instructions of CUDA can be found at: https://developer.nvidia.com/cuda-toolkit.
-
-The instructions of cuDNN can be found at: https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html.
-
-The instructions of TensorRT can be found at: https://docs.nvidia.com/deeplearning/tensorrt/install-guide/index.html.
-
-The converted TensorRT model can be downloaded form [here](https://drive.google.com/file/d/1P-mji-Ey2XnxFo7ZtLbBAfVoRL5t0SxY/view?usp=sharing). If you wish to convert the model for yourself, more details about the process can be found in the [HF-Net Model Converting](hfnet/README.md) document.
-
 ### Building HFNet-SLAM library and examples
 
 ```
@@ -68,30 +73,16 @@ chmod +x build.sh
 bash build.sh
 ```
 
-### TensorFlow C++ (optional)
+### TensorFlow C++ 
 
 The Official HF-Net is built on TensorFLow. HFNet-SLAM also support test with the original HF-Net in TensorFlow C++.
 
-1. Install TensorFlow C++: An easy method for building TensorFlow C++ API can be found at: https://github.com/FloopCZ/tensorflow_cc.
 
-2. Edit CMakeLists.txt and rebuild the project
-
-```
-# In line 19, set USE_TENSORFLOW from OFF to ON to enable TensorFlow functions. 
-set(USE_TENSORFLOW ON)
-# In line 132, indicate the installation path for TensorFlow.
-set(Tensorflow_Root "PATH/tensorflow_cc/install")
-```
-
-3. Download the converted TensorFLow Model files from [here](https://drive.google.com/file/d/1vBmC5t3NDIBULh8xeM2A_Qs2aDlaMAOz/view?usp=share_link).
-
-### ROS (optional)
+### ROS
 
 Some examples using ROS are provided. Building these examples is optional. These have been tested with ROS Noetic under Ubuntu 20.04.
 
 ## Evaluation on EuRoC dataset
-
-https://user-images.githubusercontent.com/52725165/197089468-99c7ebf2-18c7-45da-a62e-b69691c3d248.mp4
 
 Evaluate a single sequence with the pure monocular configuration:
 
@@ -124,8 +115,6 @@ bash Examples/eval_euroc.sh
 <img src="https://user-images.githubusercontent.com/52725165/205820836-37439814-6735-47b8-b65c-807de1ab744c.png" title="Evaluation results">
 
 ## Evaluation on TUM-VI dataset
-
-https://user-images.githubusercontent.com/52725165/197089404-e2c96c00-cfb0-4f73-983a-94476a01c009.mp4
 
 Evaluate a single sequence with the monocular-inertial configuration:
 
